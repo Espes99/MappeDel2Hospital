@@ -12,4 +12,8 @@ public class PatientRegistryList {
     public PatientRegistryList() {
         this.patientObservableList = FXCollections.observableArrayList();
     }
+
+    public ObservableList<Patient> getPatientObservableList() {
+        return patientObservableList;
+    }
 }
