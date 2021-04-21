@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="566.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="21.0" layoutY="48.0" text="First Name">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
+      <TextField fx:id="firstNameField" layoutX="181.0" layoutY="47.0" prefHeight="40.0" prefWidth="318.0" promptText="Enter the name you want changing">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </TextField>
+      <Button fx:id="okButton" layoutX="14.0" layoutY="446.0" mnemonicParsing="false" onAction="#okEditPatient" prefHeight="104.0" prefWidth="265.0" text="OK">
+         <font>
+            <Font size="50.0" />
+         </font>
+      </Button>
+      <Button fx:id="cancelButton" layoutX="321.0" layoutY="446.0" mnemonicParsing="false" onAction="#cancelAbort" prefHeight="104.0" prefWidth="265.0" text="CANCEL">
+         <font>
+            <Font size="50.0" />
+         </font>
+      </Button>
+      <Label layoutX="21.0" layoutY="124.0" text="Last Name">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
+      <TextField fx:id="lastNameField" layoutX="181.0" layoutY="123.0" prefHeight="40.0" prefWidth="318.0" promptText="Enter the name you want changing">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </TextField>
+      <Label layoutX="21.0" layoutY="232.0" prefHeight="37.0" prefWidth="136.0" text="SSS">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
+      <TextField fx:id="socialSecurityNumberField" layoutX="181.0" layoutY="231.0" prefHeight="40.0" prefWidth="318.0" promptText="Enter the social security number">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </TextField>
+   </children>
+</AnchorPane>

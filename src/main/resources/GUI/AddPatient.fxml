@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="566.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Label layoutX="21.0" layoutY="48.0" text="First Name">
+            <font>
+                <Font size="30.0" />
+            </font>
+        </Label>
+        <TextField fx:id="firstNameField" layoutX="181.0" layoutY="47.0" prefHeight="40.0" prefWidth="318.0" promptText="Enter the first name of the patient">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </TextField>
+        <Button fx:id="okButton" layoutX="14.0" layoutY="446.0" mnemonicParsing="false" onAction="#okAddPatient" prefHeight="104.0" prefWidth="265.0" text="OK">
+            <font>
+                <Font size="50.0" />
+            </font>
+        </Button>
+        <Button fx:id="cancelButton" layoutX="321.0" layoutY="446.0" mnemonicParsing="false" onAction="#cancelAbort" prefHeight="104.0" prefWidth="265.0" text="CANCEL">
+            <font>
+                <Font size="50.0" />
+            </font>
+        </Button>
+        <Label layoutX="21.0" layoutY="124.0" text="Last Name">
+            <font>
+                <Font size="30.0" />
+            </font>
+        </Label>
+        <TextField fx:id="lastNameField" layoutX="181.0" layoutY="123.0" prefHeight="40.0" prefWidth="318.0" promptText="Enter the last name of the patient">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </TextField>
+        <Label layoutX="21.0" layoutY="203.0" prefHeight="37.0" prefWidth="136.0" text="SSS">
+            <font>
+                <Font size="30.0" />
+            </font>
+        </Label>
+        <TextField fx:id="socialSecurityNumberField" layoutX="181.0" layoutY="202.0" prefHeight="40.0" prefWidth="318.0" promptText="Enter the social security number">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </TextField>
+      <Label layoutX="21.0" layoutY="272.0" text="Diagnosis">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
+      <Label layoutX="15.0" layoutY="348.0" prefHeight="37.0" prefWidth="250.0" text="General Practitioner">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
+      <TextField fx:id="diagnosisField" layoutX="181.0" layoutY="283.0" prefHeight="40.0" prefWidth="318.0" promptText="Enter the diagnosis">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="generalPractitionerField" layoutX="268.0" layoutY="347.0" prefHeight="40.0" prefWidth="318.0" promptText="Enter the name of the general practitioner">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </TextField>
+    </children>
+</AnchorPane>

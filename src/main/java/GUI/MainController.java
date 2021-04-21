@@ -2,20 +2,15 @@ package GUI;
 
 import Patient.Patient;
 import Patient.PatientRegistryList;
-import com.fasterxml.jackson.databind.deser.impl.PropertyValue;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 
 import java.net.URL;
 import java.util.Optional;
@@ -70,10 +65,14 @@ public class MainController implements Initializable {
     }
 
     public void addPatient(MouseEvent mouseEvent) {
+        AddPatientController addPatientController = new AddPatientController();
+        addPatientController.showStage();
 
     }
 
     public void editPatient(MouseEvent mouseEvent) {
+    EditPatientController editPatientController = new EditPatientController();
+    editPatientController.showStage();
     }
 
     public void removePatient(MouseEvent mouseEvent) {
