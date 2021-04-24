@@ -1,5 +1,4 @@
 package GUI;
-
 import Patient.Patient;
 import Patient.PatientRegistryList;
 import javafx.collections.FXCollections;
@@ -14,13 +13,13 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
-
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
 
 public class MainController implements Initializable {
+    private CSVReaderForFile csvReaderForFile;
     private Stage mainStage;
     public PatientRegistryList patientRegistryList;
     @FXML
