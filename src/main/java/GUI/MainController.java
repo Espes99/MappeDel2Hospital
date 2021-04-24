@@ -2,12 +2,15 @@ package GUI;
 
 import Patient.Patient;
 import Patient.PatientRegistryList;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
@@ -19,7 +22,7 @@ import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
     private Stage mainStage;
-    private PatientRegistryList patientRegistryList;
+    public PatientRegistryList patientRegistryList;
     @FXML
     public ImageView addPatientImage;
     @FXML
@@ -36,6 +39,8 @@ public class MainController implements Initializable {
     public TableColumn<Patient, String> c2;
     @FXML
     public TableColumn<Patient, String> c3;
+    @FXML
+    public MenuItem importFromCSV;
 
 
 
@@ -97,13 +102,31 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        patientRegistryList = new PatientRegistryList();
-        patientRegistryList.getPatientObservableList().add(new Patient("Gard", "Homse",
-                "11111111112", "AIDS", "Kiran"));
-        /*c1.setCellValueFactory(new PropertyValueFactory<Patient, String>("firstName"));
+        c1 = new TableColumn<Patient, String>("First Name");
+        c1.setCellValueFactory(new PropertyValueFactory<Patient, String>("firstName"));
+        c2 = new TableColumn<Patient, String>("Last name");
         c2.setCellValueFactory(new PropertyValueFactory<Patient, String>("lastName"));
+        c3 = new TableColumn<Patient, String>("Social Security Number");
         c3.setCellValueFactory(new PropertyValueFactory<Patient, String>("socialSecurityNumber"));
 
-       this.patientListView.setItems(patientRegistryList.getPatientObservableList());*/
+        patientListView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        patientListView.setItems(this.fillWithTestData());
+        patientListView.getColumns().addAll(c1, c2, c3);
+
     }
+
+    public ObservableList<Patient> fillWithTestData(){
+        patientRegistryList = new PatientRegistryList();
+        patientRegistryList.getPatientArrayList().add(new Patient("Gard", "Homse",
+                "11111111112", "AIDS", "Kiran"));
+        patientRegistryList.getPatientArrayList().add(new Patient("Greg", "Jonas", "03204039281", "Diabetes", "John"));
+
+        ObservableList<Patient> patientObservableList = FXCollections.observableArrayList(patientRegistryList.getPatientArrayList());
+        return patientObservableList;
+    }
+
+    public void importListFromCSVFile(){
+
+    }
+
 }

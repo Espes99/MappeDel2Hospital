@@ -4,16 +4,17 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class PatientRegistryList {
 
-    private ObservableList<Patient> patientObservableList;
+    private ArrayList<Patient> patientObservableList;
 
     public PatientRegistryList() {
-        this.patientObservableList = FXCollections.observableArrayList();
+        this.patientObservableList = new ArrayList<Patient>();
     }
 
-    public ObservableList<Patient> getPatientObservableList() {
+    public ArrayList<Patient> getPatientArrayList() {
         return patientObservableList;
     }
 }

@@ -1,7 +1,6 @@
 package App;
 
 import GUI.MainController;
-import com.sun.tools.javac.Main;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

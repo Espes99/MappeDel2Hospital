@@ -1,5 +1,7 @@
 package GUI;
 
+import Patient.Patient;
+import Patient.PatientRegistryList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -8,26 +10,25 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import org.w3c.dom.Text;
-
 import java.util.Optional;
 
 public class AddPatientController {
+    public PatientRegistryList patientRegistryList;
     private Stage stage;
     @FXML
-    private TextField firstNameField;
+    public TextField firstNameField;
     @FXML
-    private TextField lastNameField;
+    public TextField lastNameField;
     @FXML
-    private TextField socialSecurityNumberField;
+    public TextField socialSecurityNumberField;
     @FXML
-    private TextField diagnosisField;
+    public TextField diagnosisField;
     @FXML
-    private TextField generalPractitionerField;
+    public TextField generalPractitionerField;
     @FXML
-    private Button cancelButton;
+    public Button cancelButton;
     @FXML
-    private Button okButton;
+    public Button okButton;
 
     public void showStage(){
     // Create the new stage
@@ -66,7 +67,16 @@ public class AddPatientController {
     }
 
     public void okAddPatient(){
+        /*
+        String firstNameInput = firstNameField.getText();
+        String lastNameInput = lastNameField.getText();
+        String socialSecurityNumberInput = socialSecurityNumberField.getText();
+        String generalPractitionerInput = generalPractitionerField.getText();
+        patientRegistryList.getPatientArrayList().add(new Patient(firstNameInput, lastNameInput,
+                socialSecurityNumberInput, generalPractitionerInput));
 
+
+        this.stage.close();*/
     }
 
 
