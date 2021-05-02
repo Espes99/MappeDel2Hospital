@@ -1,7 +1,6 @@
 package GUI;
 import Patient.Patient;
 import Patient.PatientRegistryList;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,13 +15,12 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
 
 public class MainController implements Initializable {
+    public static Patient patientToBeEdited;
     private static PatientRegistryList patientRegistryList;
     private Stage mainStage;
     @FXML
@@ -33,6 +31,12 @@ public class MainController implements Initializable {
     public ImageView removePatientImage;
     @FXML
     public MenuItem exitMenuItem;
+    @FXML
+    public MenuItem addPatientMenuItem;
+    @FXML
+    public MenuItem editPatientMenuItem;
+    @FXML
+    public MenuItem removePatientMenuItem;
     @FXML
     public TableView<Patient> patientListView;
     @FXML
@@ -79,8 +83,17 @@ public class MainController implements Initializable {
     }
 
     public void openEditWindow(MouseEvent mouseEvent) {
-    EditPatientController editPatientController = new EditPatientController();
-    editPatientController.showStage();
+        Patient patientToBeEdited = patientListView.getSelectionModel().getSelectedItem();
+    if ( patientToBeEdited != null){
+        EditPatientController editPatientController = new EditPatientController();
+        this.patientToBeEdited = patientListView.getSelectionModel().getSelectedItem();
+        editPatientController.showStage();}
+    else{
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("No selected patient!");
+        alert.setContentText("You have not selected any patients!");
+        alert.showAndWait();
+    }
     }
 
     public void exitApp(ActionEvent actionEvent) {
@@ -142,23 +155,89 @@ public class MainController implements Initializable {
         alert.showAndWait();
     }
 
-    public void editPatient(String firstName, String lastName, String socialSecurityNumber){
+    public static Patient getPatientToBeEdited(){
+        return patientToBeEdited;
     }
 
-   public void getSelectedPatient(){
-
+    public void openAddWindowByMenuItem(){
+        AddPatientController addPatientController = new AddPatientController();
+        addPatientController.showStage();
     }
-    public void removePatient(){
+
+    public void removeSelectedPatientByMenuItem(){
+        this.updateObservableList();
+        Patient patientSelected = patientListView.getSelectionModel().getSelectedItem();
+        if (patientSelected != null){
         try {
-            removePatientImage.setOnMouseClicked(mouseEvent -> patientRegistryList.getPatientArrayList().remove(
-                    patientListView.getSelectionModel().getSelectedItem()
-            ));
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Deletion alert");
+            alert.setHeaderText(null);
+            alert.setContentText("Are you sure you want to delete: " + patientSelected.getFirstName() + " " + patientSelected.getLastName());
+
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if (result.get() == ButtonType.OK){
+                removePatientMenuItem.setOnAction(event -> patientRegistryList.getPatientArrayList().remove(
+                        patientListView.getSelectionModel().getSelectedItem()
+                ));
+            } else {
+                alert.close();
+            }
+
         } catch (Exception exception){
-            System.out.println(exception.getMessage());
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("ERROR MESSAGE");
+            alert.setHeaderText(exception.getMessage());
+            alert.showAndWait();
+        }}else
+        {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("No selected patients!");
+            alert.setContentText("You must select a patient to modify!");
+            alert.showAndWait();
+        }
+
+    }
+
+    public void removePatient(){
+        Patient patientSelected = patientListView.getSelectionModel().getSelectedItem();
+        if (patientSelected != null){
+            try {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Deletion alert");
+                alert.setHeaderText(null);
+                alert.setContentText("Are you sure you want to delete: " + patientSelected.getFirstName() + " " + patientSelected.getLastName());
+
+                Optional<ButtonType> result = alert.showAndWait();
+
+                if (result.get() == ButtonType.OK){
+                    removePatientImage.setOnMouseClicked(event -> patientRegistryList.getPatientArrayList().remove(
+                            patientListView.getSelectionModel().getSelectedItem()
+                    ));
+                } else {
+                    alert.close();
+                }
+
+            } catch (Exception exception){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("ERROR MESSAGE");
+                alert.setHeaderText(exception.getMessage());
+                alert.showAndWait();
+            }}else
+        {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("No selected patients!");
+            alert.setContentText("You must select a patient to modify!");
+            alert.showAndWait();
         }
     }
 
-    public void onEdit(String firstName, String lastName, String sSN) {
+    public void updateObservableList(){
+
+    }
+
+    public ObservableList<Patient> getMainList(){
+        return patientRegistryList.getPatientArrayList();
     }
 
 }

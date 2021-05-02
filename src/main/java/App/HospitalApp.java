@@ -16,10 +16,6 @@ public class HospitalApp extends Application {
         MainController mainController = new MainController();
             mainController.showStage();
     }
-    private static Parent loadFXML() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HospitalApp.class.getResource("/GUI/MainController.fxml"));
-        return fxmlLoader.load();
-    }
 
     public static void main(String[] args) {
         launch();

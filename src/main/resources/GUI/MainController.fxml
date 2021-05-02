@@ -12,21 +12,21 @@
         <menus>
             <Menu mnemonicParsing="false" text="File">
                 <items>
-                    <MenuItem fx:id="importFromCSV" mnemonicParsing="false" text="Import from .CSV..." onAction="#importListFromCSVFile" />
+                    <MenuItem fx:id="importFromCSV" mnemonicParsing="false" onAction="#importListFromCSVFile" text="Import from .CSV..." />
                     <MenuItem mnemonicParsing="false" text="Export to CSV ..." />
                     <MenuItem fx:id="exitMenuItem" mnemonicParsing="false" onAction="#exitApp" text="Exit" />
                 </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Edit">
                 <items>
-                    <MenuItem mnemonicParsing="false" text="Add new patient" />
-                    <MenuItem mnemonicParsing="false" text="Edit selected patient" />
-                    <MenuItem mnemonicParsing="false" text="Remove selected patient" />
+                    <MenuItem fx:id="addPatientMenuItem" mnemonicParsing="false" onAction="#openAddWindowByMenuItem" text="Add new patient" />
+                    <MenuItem fx:id="editPatientMenuItem" mnemonicParsing="false" text="Edit selected patient" />
+                    <MenuItem fx:id="removePatientMenuItem" mnemonicParsing="false" onAction="#removeSelectedPatientByMenuItem" text="Remove selected patient" />
                 </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Help">
                 <items>
-                    <MenuItem mnemonicParsing="false" text="About" onAction="#showAboutWindow"/>
+                    <MenuItem mnemonicParsing="false" onAction="#showAboutWindow" text="About" />
                 </items>
             </Menu>
         </menus>

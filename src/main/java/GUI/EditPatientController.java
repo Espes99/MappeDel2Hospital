@@ -2,6 +2,7 @@ package GUI;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -9,9 +10,12 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import java.net.URL;
 import java.util.Optional;
+import java.util.ResourceBundle;
 
-public class EditPatientController {
+public class EditPatientController implements Initializable {
+    private MainController mainController;
     private Stage stage;
     @FXML
     public TextField firstNameField;
@@ -25,7 +29,16 @@ public class EditPatientController {
     public Button okButton;
 
 
-
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        try{
+            firstNameField.setText(mainController.getPatientToBeEdited().getFirstName());
+            lastNameField.setText(mainController.getPatientToBeEdited().getLastName());
+            socialSecurityNumberField.setText(mainController.getPatientToBeEdited().getSocialSecurityNumber());}
+        catch (Exception e ){
+            System.out.println(e.getMessage());
+        }
+    }
     public void showStage(){
         // Create the new stage
         stage = new Stage();
@@ -39,7 +52,6 @@ public class EditPatientController {
             stage.setScene(new Scene(loader.load()));
             // Setup the window/stage
             stage.setTitle("Edit A Patient");
-
             stage.show();
 
         } catch(Exception e) {
@@ -65,7 +77,11 @@ public class EditPatientController {
     }
 
     public void okEditPatient(){
-
+        mainController.getPatientToBeEdited().setFirstName(firstNameField.getText());
+        mainController.getPatientToBeEdited().setLastName(lastNameField.getText());
+        mainController.getPatientToBeEdited().setSocialSecurityNumber(socialSecurityNumberField.getText());
+        stage.close();
     }
+
 
 }
