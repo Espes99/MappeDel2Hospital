@@ -11,7 +11,7 @@
                 <Font size="30.0" />
             </font>
         </Label>
-        <TextField fx:id="firstNameField" layoutX="181.0" layoutY="47.0" prefHeight="40.0" prefWidth="318.0" promptText="Enter the first name of the patient">
+        <TextField fx:id="firstNameField" layoutX="181.0" layoutY="47.0" prefHeight="40.0" prefWidth="318.0" promptText="Enter the name you want changing">
             <font>
                 <Font size="20.0" />
             </font>
@@ -31,40 +31,20 @@
                 <Font size="30.0" />
             </font>
         </Label>
-        <TextField fx:id="lastNameField" layoutX="181.0" layoutY="123.0" prefHeight="40.0" prefWidth="318.0" promptText="Enter the last name of the patient">
+        <TextField fx:id="lastNameField" layoutX="181.0" layoutY="123.0" prefHeight="40.0" prefWidth="318.0" promptText="Enter the name you want changing">
             <font>
                 <Font size="20.0" />
             </font>
         </TextField>
-        <Label layoutX="21.0" layoutY="203.0" prefHeight="37.0" prefWidth="136.0" text="SSS">
+        <Label layoutX="21.0" layoutY="232.0" prefHeight="37.0" prefWidth="136.0" text="SSS">
             <font>
                 <Font size="30.0" />
             </font>
         </Label>
-        <TextField fx:id="socialSecurityNumberField" layoutX="181.0" layoutY="202.0" prefHeight="40.0" prefWidth="318.0" promptText="Enter the social security number">
+        <TextField fx:id="socialSecurityNumberField" layoutX="181.0" layoutY="231.0" prefHeight="40.0" prefWidth="318.0" promptText="Enter the social security number">
             <font>
                 <Font size="20.0" />
             </font>
         </TextField>
-      <Label layoutX="21.0" layoutY="272.0" text="Diagnosis">
-         <font>
-            <Font size="30.0" />
-         </font>
-      </Label>
-      <Label layoutX="15.0" layoutY="348.0" prefHeight="37.0" prefWidth="250.0" text="General Practitioner">
-         <font>
-            <Font size="30.0" />
-         </font>
-      </Label>
-      <TextField fx:id="diagnosisField" layoutX="181.0" layoutY="283.0" prefHeight="40.0" prefWidth="318.0" promptText="Enter the diagnosis">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </TextField>
-      <TextField fx:id="generalPractitionerField" layoutX="268.0" layoutY="347.0" prefHeight="40.0" prefWidth="318.0" promptText="Enter the name of the general practitioner">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </TextField>
     </children>
 </AnchorPane>

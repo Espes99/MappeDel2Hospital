@@ -14,6 +14,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -40,46 +42,51 @@ public class MainController implements Initializable {
     public TableColumn<Patient, String> c3;
     @FXML
     public MenuItem importFromCSV;
+    @FXML
+    public TabPane tabPane;
 
 
 
     public MainController(){
         // Create the new stage
         this.mainStage = new Stage();
-
+        patientRegistryList = new PatientRegistryList();
+        this.reloadWindow();
+    }
+    public void reloadWindow(){
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/MainController.fxml"));
-
             // Set this class as the controller
             loader.setController(this);
             // Load the scene
             mainStage.setScene(new Scene(loader.load()));
             // Setup the window/stage
             mainStage.setTitle("Hospital App");
-
+            mainStage.setMinHeight(300);
+            mainStage.setMinWidth(830);
+            mainStage.setMaxWidth(830);
         } catch(Exception e) {
             e.printStackTrace();
         }
-
-
     }
 
     public void showStage(){
         this.mainStage.show();
     }
 
-    public void addPatient(MouseEvent mouseEvent) {
+    public void openAddWindow(MouseEvent mouseEvent) {
         AddPatientController addPatientController = new AddPatientController();
         addPatientController.showStage();
 
     }
 
-    public void editPatient(MouseEvent mouseEvent) {
+    public void openEditWindow(MouseEvent mouseEvent) {
     EditPatientController editPatientController = new EditPatientController();
     editPatientController.showStage();
     }
 
     public void removePatient(MouseEvent mouseEvent) {
+        reloadWindow();
     }
 
     public void exitApp(ActionEvent actionEvent) {
@@ -109,16 +116,15 @@ public class MainController implements Initializable {
         c3.setCellValueFactory(new PropertyValueFactory<Patient, String>("socialSecurityNumber"));
 
         patientListView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-        patientListView.setItems(this.fillWithTestData());
+        patientListView.setItems(this.fillWithTestData()); // needs to be deleted.
         patientListView.getColumns().addAll(c1, c2, c3);
 
     }
 
     public ObservableList<Patient> fillWithTestData(){
-        patientRegistryList = new PatientRegistryList();
-        patientRegistryList.getPatientArrayList().add(new Patient("Gard", "Homse",
+        this.patientRegistryList.getPatientArrayList().add(new Patient("Gard", "Homse",
                 "11111111112", "AIDS", "Kiran"));
-        patientRegistryList.getPatientArrayList().add(new Patient("Greg", "Jonas", "03204039281", "Diabetes", "John"));
+        this.patientRegistryList.getPatientArrayList().add(new Patient("Greg", "Jonas", "03204039281", "Diabetes", "John"));
 
         ObservableList<Patient> patientObservableList = FXCollections.observableArrayList(patientRegistryList.getPatientArrayList());
         return patientObservableList;
@@ -126,6 +132,18 @@ public class MainController implements Initializable {
 
     public void importListFromCSVFile(){
 
+    }
+    public void showAboutWindow() {
+        LocalDate localDate = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MMMM yyy"); // formats the local date
+        String formattedString = localDate.format(formatter); // Makes it a String
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Information Dialog - About");
+        alert.setHeaderText("Mappe-prosjekt");
+        alert.setContentText("Patient list application\n"
+                + "version 1.0.0\n"
+                + localDate); //Print current date on the system running
+        alert.showAndWait();
     }
 
 }

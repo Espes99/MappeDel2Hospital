@@ -14,15 +14,15 @@ import java.util.Optional;
 public class EditPatientController {
     private Stage stage;
     @FXML
-    private TextField firstNameField;
+    public TextField firstNameField;
     @FXML
-    private TextField lastNameField;
+    public TextField lastNameField;
     @FXML
-    private TextField socialSecurityNumberField;
+    public TextField socialSecurityNumberField;
     @FXML
-    private Button cancelButton;
+    public Button cancelButton;
     @FXML
-    private Button okButton;
+    public Button okButton;
 
 
 
