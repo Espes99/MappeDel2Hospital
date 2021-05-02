@@ -16,14 +16,14 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
 
 public class MainController implements Initializable {
-    private CSVReaderForFile csvReaderForFile;
+    private static PatientRegistryList patientRegistryList;
     private Stage mainStage;
-    public PatientRegistryList patientRegistryList;
     @FXML
     public ImageView addPatientImage;
     @FXML
@@ -33,7 +33,7 @@ public class MainController implements Initializable {
     @FXML
     public MenuItem exitMenuItem;
     @FXML
-    public TableView patientListView;
+    public TableView<Patient> patientListView;
     @FXML
     public TableColumn<Patient, String> c1;
     @FXML
@@ -42,8 +42,6 @@ public class MainController implements Initializable {
     public TableColumn<Patient, String> c3;
     @FXML
     public MenuItem importFromCSV;
-    @FXML
-    public TabPane tabPane;
 
 
 
@@ -51,9 +49,6 @@ public class MainController implements Initializable {
         // Create the new stage
         this.mainStage = new Stage();
         patientRegistryList = new PatientRegistryList();
-        this.reloadWindow();
-    }
-    public void reloadWindow(){
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/MainController.fxml"));
             // Set this class as the controller
@@ -69,6 +64,7 @@ public class MainController implements Initializable {
             e.printStackTrace();
         }
     }
+
 
     public void showStage(){
         this.mainStage.show();
@@ -86,7 +82,6 @@ public class MainController implements Initializable {
     }
 
     public void removePatient(MouseEvent mouseEvent) {
-        reloadWindow();
     }
 
     public void exitApp(ActionEvent actionEvent) {
@@ -115,24 +110,26 @@ public class MainController implements Initializable {
         c3 = new TableColumn<Patient, String>("Social Security Number");
         c3.setCellValueFactory(new PropertyValueFactory<Patient, String>("socialSecurityNumber"));
 
-        patientListView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-        patientListView.setItems(this.fillWithTestData()); // needs to be deleted.
+        patientListView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY); //Sizing columns to window
+        patientListView.setItems(patientRegistryList.getPatientArrayList());
         patientListView.getColumns().addAll(c1, c2, c3);
 
     }
 
-    public ObservableList<Patient> fillWithTestData(){
-        this.patientRegistryList.getPatientArrayList().add(new Patient("Gard", "Homse",
+    public void fillList(){
+        patientRegistryList.getPatientArrayList().add(new Patient("Gard", "Homse",
                 "11111111112", "AIDS", "Kiran"));
-        this.patientRegistryList.getPatientArrayList().add(new Patient("Greg", "Jonas", "03204039281", "Diabetes", "John"));
-
-        ObservableList<Patient> patientObservableList = FXCollections.observableArrayList(patientRegistryList.getPatientArrayList());
-        return patientObservableList;
+        patientRegistryList.getPatientArrayList().add(new Patient("Greg", "Jonas", "03204039281", "Diabetes", "John"));
     }
 
     public void importListFromCSVFile(){
 
     }
+
+    public static void addPatientToList(Patient patient){
+        patientRegistryList.getPatientArrayList().add(patient);
+    }
+
     public void showAboutWindow() {
         LocalDate localDate = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MMMM yyy"); // formats the local date
@@ -144,6 +141,24 @@ public class MainController implements Initializable {
                 + "version 1.0.0\n"
                 + localDate); //Print current date on the system running
         alert.showAndWait();
+    }
+
+    public void editPatient(String firstName, String lastName, String socialSecurityNumber){
+    }
+
+   public void getSelectedPatient(){
+
+    }
+    public void deleteSelected(){
+
+        removePatientImage.setOnMouseClicked(
+    event -> mainController.doDeleteLiterature(
+            patientListView.getSelectionModel().getSelectedItem(),
+            this.litReg,
+            this)
+            );}
+
+    public void onEdit(String firstName, String lastName, String sSN) {
     }
 
 }

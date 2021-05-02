@@ -13,7 +13,6 @@ import javafx.stage.Stage;
 import java.util.Optional;
 
 public class AddPatientController {
-    private MainController mainController;
     private Patient patient;
     private Stage stage;
     @FXML
@@ -64,23 +63,8 @@ public class AddPatientController {
     }
 
     public void okAddPatient(){
-        mainController = new MainController();
-        patient = new Patient(firstNameField.getText(), lastNameField.getText(), socialSecurityNumberField.getText(), "", "");
-        mainController.patientListView.getItems().add(patient);
-        mainController.patientRegistryList.getPatientArrayList().add(patient);
-        mainController.patientRegistryList.getPatientArrayList().add(new Patient("John", "Jonas", "03204046881", "Diabetes", "John"));
-        mainController.reloadWindow();
+        MainController.addPatientToList(new Patient(firstNameField.getText(), lastNameField.getText(), socialSecurityNumberField.getText(), "", ""));
         stage.close();
-
-        /*
-        String firstNameInput = firstNameField.getText();
-        String lastNameInput = lastNameField.getText();
-        String socialSecurityNumberInput = socialSecurityNumberField.getText();
-        patientRegistryList.getPatientArrayList().add(new Patient(firstNameInput, lastNameInput,
-                socialSecurityNumberInput);
-
-
-        this.stage.close();*/
     }
 
 
