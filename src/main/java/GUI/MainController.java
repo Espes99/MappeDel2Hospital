@@ -1,6 +1,7 @@
 package GUI;
 import Patient.Patient;
 import Patient.PatientRegistryList;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -165,7 +166,6 @@ public class MainController implements Initializable {
     }
 
     public void removeSelectedPatientByMenuItem(){
-        this.updateObservableList();
         Patient patientSelected = patientListView.getSelectionModel().getSelectedItem();
         if (patientSelected != null){
         try {
@@ -233,7 +233,7 @@ public class MainController implements Initializable {
     }
 
     public void updateObservableList(){
-
+        patientRegistryList.getPatientArrayList().addListener((ListChangeListener<Patient>) change -> patientListView.refresh());
     }
 
     public ObservableList<Patient> getMainList(){
