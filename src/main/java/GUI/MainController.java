@@ -17,6 +17,7 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -49,6 +50,7 @@ public class MainController implements Initializable {
         // Create the new stage
         this.mainStage = new Stage();
         patientRegistryList = new PatientRegistryList();
+        fillList();
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/MainController.fxml"));
             // Set this class as the controller
@@ -79,9 +81,6 @@ public class MainController implements Initializable {
     public void openEditWindow(MouseEvent mouseEvent) {
     EditPatientController editPatientController = new EditPatientController();
     editPatientController.showStage();
-    }
-
-    public void removePatient(MouseEvent mouseEvent) {
     }
 
     public void exitApp(ActionEvent actionEvent) {
@@ -149,14 +148,15 @@ public class MainController implements Initializable {
    public void getSelectedPatient(){
 
     }
-    public void deleteSelected(){
-
-        removePatientImage.setOnMouseClicked(
-    event -> mainController.doDeleteLiterature(
-            patientListView.getSelectionModel().getSelectedItem(),
-            this.litReg,
-            this)
-            );}
+    public void removePatient(){
+        try {
+            removePatientImage.setOnMouseClicked(mouseEvent -> patientRegistryList.getPatientArrayList().remove(
+                    patientListView.getSelectionModel().getSelectedItem()
+            ));
+        } catch (Exception exception){
+            System.out.println(exception.getMessage());
+        }
+    }
 
     public void onEdit(String firstName, String lastName, String sSN) {
     }
