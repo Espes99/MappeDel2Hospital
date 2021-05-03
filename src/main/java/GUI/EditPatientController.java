@@ -1,5 +1,6 @@
 package GUI;
 
+import Patient.Patient;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -80,10 +81,10 @@ public class EditPatientController implements Initializable {
         }
     }
 
-    public void okEditPatient(){
-        mainController.getPatientToBeEdited().setFirstName(firstNameField.getText());
-        mainController.getPatientToBeEdited().setLastName(lastNameField.getText());
-        mainController.getPatientToBeEdited().setSocialSecurityNumber(socialSecurityNumberField.getText());
+    public void okEditPatient() {
+        Patient patient = new Patient(firstNameField.getText(), lastNameField.getText(), socialSecurityNumberField.getText(), "", "");
+        mainController.patientRegistryList.getPatientArrayList().add(patient);
+        mainController.patientRegistryList.getPatientArrayList().remove(mainController.getPatientToBeEdited());
         stage.close();
     }
 

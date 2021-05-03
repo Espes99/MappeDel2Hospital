@@ -87,16 +87,16 @@ public class MainController implements Initializable {
 
     public void openEditWindow(MouseEvent mouseEvent) {
         Patient patientToBeEdited = patientListView.getSelectionModel().getSelectedItem();
-    if ( patientToBeEdited != null){
-        EditPatientController editPatientController = new EditPatientController();
-        this.patientToBeEdited = patientListView.getSelectionModel().getSelectedItem();
-        editPatientController.showStage();}
-    else{
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("No selected patient!");
-        alert.setContentText("You have not selected any patients!");
-        alert.showAndWait();
-    }
+        if (patientToBeEdited != null) {
+            EditPatientController editPatientController = new EditPatientController();
+            this.patientToBeEdited = patientListView.getSelectionModel().getSelectedItem();
+            editPatientController.showStage();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("No selected patient!");
+            alert.setContentText("You have not selected any patients!");
+            alert.showAndWait();
+        }
     }
 
     public void exitApp(ActionEvent actionEvent) {
