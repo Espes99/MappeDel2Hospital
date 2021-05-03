@@ -28,6 +28,10 @@ public class EditPatientController implements Initializable {
     @FXML
     public TextField socialSecurityNumberField;
     @FXML
+    public TextField diagnosisField;
+    @FXML
+    public TextField generalPractitionerField;
+    @FXML
     public Button cancelButton;
     @FXML
     public Button okButton;
@@ -39,6 +43,8 @@ public class EditPatientController implements Initializable {
             firstNameField.setText(mainController.getPatientToBeEdited().getFirstName());
             lastNameField.setText(mainController.getPatientToBeEdited().getLastName());
             socialSecurityNumberField.setText(mainController.getPatientToBeEdited().getSocialSecurityNumber());
+            diagnosisField.setText(mainController.getPatientToBeEdited().getDiagnosis());
+            generalPractitionerField.setText(mainController.getPatientToBeEdited().getGeneralPractitioner());
         } catch (Exception e) {
             LOGGER.error("Error message: " + e.getMessage());
         }
@@ -82,7 +88,7 @@ public class EditPatientController implements Initializable {
     }
 
     public void okEditPatient() {
-        Patient patient = new Patient(firstNameField.getText(), lastNameField.getText(), socialSecurityNumberField.getText(), "", "");
+        Patient patient = new Patient(firstNameField.getText(), lastNameField.getText(), socialSecurityNumberField.getText(), diagnosisField.getText(), generalPractitionerField.getText());
         mainController.patientRegistryList.getPatientArrayList().add(patient);
         mainController.patientRegistryList.getPatientArrayList().remove(mainController.getPatientToBeEdited());
         stage.close();

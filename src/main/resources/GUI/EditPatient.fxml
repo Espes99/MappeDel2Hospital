@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="566.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="566.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label layoutX="21.0" layoutY="48.0" text="First Name">
          <font>
@@ -36,12 +38,32 @@
             <Font size="20.0" />
          </font>
       </TextField>
-      <Label layoutX="21.0" layoutY="232.0" prefHeight="37.0" prefWidth="136.0" text="SSS">
+      <Label layoutX="25.0" layoutY="186.0" prefHeight="37.0" prefWidth="136.0" text="SSS">
          <font>
             <Font size="30.0" />
          </font>
       </Label>
-      <TextField fx:id="socialSecurityNumberField" layoutX="181.0" layoutY="231.0" prefHeight="40.0" prefWidth="318.0" promptText="Enter the social security number">
+      <TextField fx:id="socialSecurityNumberField" layoutX="181.0" layoutY="187.0" prefHeight="40.0" prefWidth="318.0" promptText="Enter the social security number">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </TextField>
+      <Label layoutX="25.0" layoutY="249.0" prefHeight="37.0" prefWidth="136.0" text="Diagnosis">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
+      <Label layoutX="25.0" layoutY="308.0" prefHeight="37.0" prefWidth="136.0" text="GP">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
+      <TextField fx:id="diagnosisField" layoutX="181.0" layoutY="250.0" prefHeight="40.0" prefWidth="318.0" promptText="Enter the Diagnosis">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="generalPractitionerField" layoutX="181.0" layoutY="309.0" prefHeight="40.0" prefWidth="318.0" promptText="Enter the General Practitioner">
          <font>
             <Font size="20.0" />
          </font>

@@ -26,32 +26,36 @@ public class AddPatientController {
     @FXML
     public TextField socialSecurityNumberField;
     @FXML
+    public TextField diagnosisField;
+    @FXML
+    public TextField generalPractitionerField;
+    @FXML
     public Button cancelButton;
     @FXML
     public Button okButton;
 
-    public void showStage(){
-    // Create the new stage
-    stage = new Stage();
+    public void showStage() {
+        // Create the new stage
+        stage = new Stage();
 
         try {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/AddPatient.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/AddPatient.fxml"));
 
-        // Set this class as the controller
-        loader.setController(this);
-        // Load the scene
-        stage.setScene(new Scene(loader.load()));
-        // Setup the window/stage
-        stage.setTitle("Add A Patient");
+            // Set this class as the controller
+            loader.setController(this);
+            // Load the scene
+            stage.setScene(new Scene(loader.load()));
+            // Setup the window/stage
+            stage.setTitle("Add A Patient");
 
-        stage.show();
+            stage.show();
 
-    } catch(Exception e) {
-        e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-    }
 
-    public void cancelAbort(){
+    public void cancelAbort() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Exit alert");
         alert.setHeaderText("This is an exit alert!");
@@ -59,38 +63,53 @@ public class AddPatientController {
 
         Optional<ButtonType> result = alert.showAndWait();
 
-        if (result.get() == ButtonType.OK){
+        if (result.get() == ButtonType.OK) {
             this.stage.close();
         } else {
             alert.close();
         }
     }
 
-    public void okAddPatient() throws NullPointerException, IOException{
+    public void okAddPatient() throws NullPointerException, IOException {
         try {
-            if (firstNameField.getText().equals("")) {
-                throw new IOException("Empty String");}
+            if (firstNameField.getText().equals("") || lastNameField.getText().equals("")/* ||
+            diagnosisField.getText().equals("") || generalPractitionerField.getText().equals("")*/) {
+                throw new IOException("Empty String");
+            }
 
-            Patient patientToAdd = new Patient(firstNameField.getText(), lastNameField.getText(), socialSecurityNumberField.getText(), "", "");
+            Patient patientToAdd = new Patient(firstNameField.getText(), lastNameField.getText(),
+                    socialSecurityNumberField.getText(), diagnosisField.getText(), generalPractitionerField.getText());
             MainController.addPatientToList(patientToAdd);
             stage.close();
+
+            if (socialSecurityNumberField.getText().length() != 11) {
+                throw new IllegalArgumentException("Social Security Number not 11 digits(String)");
             }
-        catch (NullPointerException nullPointerException){
+        } catch (NullPointerException nullPointerException) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Invalid Input!");
             alert.setHeaderText("None of the fields can be empty!");
             alert.setContentText("Please input correct information.");
             alert.showAndWait();
             LOGGER.error("An Error occured when adding ");
-            LOGGER.debug("Following excpetion: " +nullPointerException);
+            LOGGER.debug("Following excpetion: " + nullPointerException);
 
-        } catch (IOException ioe){
+        } catch (IOException ioe) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Invalid Input!");
             alert.setHeaderText("None of the fields can be empty!");
             alert.setContentText("Please input correct information.");
             alert.showAndWait();
-        LOGGER.error("IOException caught! Invalid inputs when adding " + patient);}
+            LOGGER.error("IOException caught! Invalid inputs when adding " + patient);
+        } catch (
+                IllegalArgumentException iae) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Invalid Input!");
+            alert.setHeaderText("Social security number needs 11 numbers!");
+            alert.setContentText("Please enter correct amount of number.");
+            alert.showAndWait();
+            LOGGER.debug("User entered " + socialSecurityNumberField.getText());
+        }
     }
 
 

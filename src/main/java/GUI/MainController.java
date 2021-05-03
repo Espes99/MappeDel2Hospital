@@ -13,8 +13,11 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.apache.log4j.Logger;
+
+import java.io.*;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -50,6 +53,10 @@ public class MainController implements Initializable {
     @FXML
     public TableColumn<Patient, String> c3;
     @FXML
+    public TableColumn<Patient, String> c4;
+    @FXML
+    public TableColumn<Patient, String> c5;
+    @FXML
     public MenuItem importFromCSV;
 
 
@@ -79,13 +86,17 @@ public class MainController implements Initializable {
         this.mainStage.show();
     }
 
-    public void openAddWindow(MouseEvent mouseEvent) {
+    public void openAddWindow() {
         AddPatientController addPatientController = new AddPatientController();
         addPatientController.showStage();
 
     }
 
-    public void openEditWindow(MouseEvent mouseEvent) {
+    public void openAddWindowMenuItem() {
+       openAddWindow();
+    }
+
+    public void openEditWindow() {
         Patient patientToBeEdited = patientListView.getSelectionModel().getSelectedItem();
         if (patientToBeEdited != null) {
             EditPatientController editPatientController = new EditPatientController();
@@ -97,6 +108,10 @@ public class MainController implements Initializable {
             alert.setContentText("You have not selected any patients!");
             alert.showAndWait();
         }
+    }
+
+    public void openEditWindowWithMenuItem() {
+        openEditWindow();
     }
 
     public void exitApp(ActionEvent actionEvent) {
@@ -124,10 +139,14 @@ public class MainController implements Initializable {
         c2.setCellValueFactory(new PropertyValueFactory<Patient, String>("lastName"));
         c3 = new TableColumn<Patient, String>("Social Security Number");
         c3.setCellValueFactory(new PropertyValueFactory<Patient, String>("socialSecurityNumber"));
+        c4 = new TableColumn<Patient, String>("Diagnosis");
+        c4.setCellValueFactory(new PropertyValueFactory<Patient, String>("diagnosis"));
+        c5 = new TableColumn<Patient, String>("General Practitioner");
+        c5.setCellValueFactory(new PropertyValueFactory<Patient, String>("generalPractitioner"));
 
         patientListView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY); //Sizing columns to window
         patientListView.setItems(patientRegistryList.getPatientArrayList());
-        patientListView.getColumns().addAll(c1, c2, c3);
+        patientListView.getColumns().addAll(c1, c2, c3, c4, c5);
 
     }
 
@@ -135,10 +154,6 @@ public class MainController implements Initializable {
         patientRegistryList.getPatientArrayList().add(new Patient("Gard", "Homse",
                 "11111111112", "AIDS", "Kiran"));
         patientRegistryList.getPatientArrayList().add(new Patient("Greg", "Jonas", "03204039281", "Diabetes", "John"));
-    }
-
-    public void importListFromCSVFile() {
-
     }
 
     public static void addPatientToList(Patient patient) {
@@ -167,7 +182,7 @@ public class MainController implements Initializable {
         addPatientController.showStage();
     }
 
-    public void removeSelectedPatientByMenuItem() {
+    public void removePatient() {
         Patient patientSelected = patientListView.getSelectionModel().getSelectedItem();
         if (patientSelected != null) {
             try {
@@ -179,9 +194,8 @@ public class MainController implements Initializable {
                 Optional<ButtonType> result = alert.showAndWait();
 
                 if (result.get() == ButtonType.OK) {
-                    removePatientMenuItem.setOnAction(event -> patientRegistryList.getPatientArrayList().remove(
-                            patientListView.getSelectionModel().getSelectedItem()
-                    ));
+                    patientRegistryList.getPatientArrayList().remove(patientSelected);
+                    patientListView.setItems(patientRegistryList.getPatientArrayList());
                 } else {
                     alert.close();
                 }
@@ -198,39 +212,49 @@ public class MainController implements Initializable {
             alert.setContentText("You must select a patient to modify!");
             alert.showAndWait();
         }
-
     }
 
-    public void removePatient() {
-        Patient patientSelected = patientListView.getSelectionModel().getSelectedItem();
-        if (patientSelected != null) {
-            try {
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Deletion alert");
-                alert.setHeaderText(null);
-                alert.setContentText("Are you sure you want to delete: " + patientSelected.getFirstName() + " " + patientSelected.getLastName());
+    public void removeSelectedPatientByMenuItem() {
+        removePatient();
+    }
 
-                Optional<ButtonType> result = alert.showAndWait();
 
-                if (result.get() == ButtonType.OK) {
-                    removePatientImage.setOnMouseClicked(event -> patientRegistryList.getPatientArrayList().remove(
-                            patientListView.getSelectionModel().getSelectedItem()
-                    ));
-                } else {
-                    alert.close();
-                }
+    public void importListFromCSVFile() {
+        try {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Pick CSV file");
+            fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("csv", "*.csv"));
+            Stage stage = (Stage) mainStage.getScene().getWindow();
+            File file = fileChooser.showOpenDialog(stage);
 
-            } catch (Exception exception) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("ERROR MESSAGE");
-                alert.setHeaderText(exception.getMessage());
-                alert.showAndWait();
+            BufferedReader csvReader = new BufferedReader(new FileReader(file));
+            String row;
+            csvReader.readLine();
+            while ((row = csvReader.readLine()) != null) {
+                String[] data = row.split(";");
+                if (data[3].length() == 11) {
+                    patientRegistryList.getPatientArrayList().add(new Patient(data[0], data[1], data[3], "UNDEFINED", data[2]));
+                } //Diagnosis set to undefined.
             }
-        } else {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("No selected patients!");
-            alert.setContentText("You must select a patient to modify!");
+            alert.setTitle("IMPORT INFORMATION");
+            alert.setHeaderText(null);
+            alert.setContentText("Only imported patients with valid Social Security Number (11 digits)");
             alert.showAndWait();
+            csvReader.close();
+        } catch (FileNotFoundException fnfe) {
+            LOGGER.error(fnfe.getMessage());
+        } catch (IOException ioe) {
+            LOGGER.error(ioe.getMessage());
+        } catch (IllegalArgumentException iae) {
+            LOGGER.fatal(iae.getMessage());
+        }catch (NullPointerException npe){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("WRONG FILETYPE");
+            alert.setHeaderText("Cant read file");
+            alert.setContentText("Seems like the file is different from a csv file!");
+            alert.showAndWait();
+            LOGGER.fatal(npe.getMessage() + " Possibly no files were chosen!");
         }
     }
 

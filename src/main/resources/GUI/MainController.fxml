@@ -19,8 +19,8 @@
             </Menu>
             <Menu mnemonicParsing="false" text="Edit">
                 <items>
-                    <MenuItem fx:id="addPatientMenuItem" mnemonicParsing="false" onAction="#openAddWindowByMenuItem" text="Add new patient" />
-                    <MenuItem fx:id="editPatientMenuItem" mnemonicParsing="false" text="Edit selected patient" />
+                    <MenuItem fx:id="addPatientMenuItem" mnemonicParsing="false" onAction="#openAddWindowMenuItem" text="Add new patient" />
+                    <MenuItem fx:id="editPatientMenuItem" mnemonicParsing="false" onAction="#openEditWindowWithMenuItem" text="Edit selected patient" />
                     <MenuItem fx:id="removePatientMenuItem" mnemonicParsing="false" onAction="#removeSelectedPatientByMenuItem" text="Remove selected patient" />
                 </items>
             </Menu>
