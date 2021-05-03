@@ -9,13 +9,16 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import org.apache.log4j.Logger;
 
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class EditPatientController implements Initializable {
+    private static final Logger LOGGER = Logger.getLogger(EditPatientController.class.getName());
     private MainController mainController;
+    private Patient selectedPatient;
     private Stage stage;
     @FXML
     public TextField firstNameField;
@@ -31,15 +34,16 @@ public class EditPatientController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        try{
+        try {
             firstNameField.setText(mainController.getPatientToBeEdited().getFirstName());
             lastNameField.setText(mainController.getPatientToBeEdited().getLastName());
-            socialSecurityNumberField.setText(mainController.getPatientToBeEdited().getSocialSecurityNumber());}
-        catch (Exception e ){
-            System.out.println(e.getMessage());
+            socialSecurityNumberField.setText(mainController.getPatientToBeEdited().getSocialSecurityNumber());
+        } catch (Exception e) {
+            LOGGER.error("Error message: " + e.getMessage());
         }
     }
-    public void showStage(){
+
+    public void showStage() {
         // Create the new stage
         stage = new Stage();
 
@@ -54,14 +58,14 @@ public class EditPatientController implements Initializable {
             stage.setTitle("Edit A Patient");
             stage.show();
 
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
 
     }
 
-    public void cancelAbort(){
+    public void cancelAbort() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Exit alert");
         alert.setHeaderText("This is an exit alert!");
@@ -69,7 +73,7 @@ public class EditPatientController implements Initializable {
 
         Optional<ButtonType> result = alert.showAndWait();
 
-        if (result.get() == ButtonType.OK){
+        if (result.get() == ButtonType.OK) {
             this.stage.close();
         } else {
             alert.close();

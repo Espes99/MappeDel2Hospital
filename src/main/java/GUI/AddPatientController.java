@@ -10,9 +10,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import org.apache.log4j.Logger;
+
+import java.io.IOException;
 import java.util.Optional;
 
 public class AddPatientController {
+    private static final Logger LOGGER = Logger.getLogger(AddPatientController.class.getName());
     private Patient patient;
     private Stage stage;
     @FXML
@@ -62,9 +66,31 @@ public class AddPatientController {
         }
     }
 
-    public void okAddPatient(){
-        MainController.addPatientToList(new Patient(firstNameField.getText(), lastNameField.getText(), socialSecurityNumberField.getText(), "", ""));
-        stage.close();
+    public void okAddPatient() throws NullPointerException, IOException{
+        try {
+            if (firstNameField.getText().equals("")) {
+                throw new IOException("Empty String");}
+
+            Patient patientToAdd = new Patient(firstNameField.getText(), lastNameField.getText(), socialSecurityNumberField.getText(), "", "");
+            MainController.addPatientToList(patientToAdd);
+            stage.close();
+            }
+        catch (NullPointerException nullPointerException){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Invalid Input!");
+            alert.setHeaderText("None of the fields can be empty!");
+            alert.setContentText("Please input correct information.");
+            alert.showAndWait();
+            LOGGER.error("An Error occured when adding ");
+            LOGGER.debug("Following excpetion: " +nullPointerException);
+
+        } catch (IOException ioe){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Invalid Input!");
+            alert.setHeaderText("None of the fields can be empty!");
+            alert.setContentText("Please input correct information.");
+            alert.showAndWait();
+        LOGGER.error("IOException caught! Invalid inputs when adding " + patient);}
     }
 
 
