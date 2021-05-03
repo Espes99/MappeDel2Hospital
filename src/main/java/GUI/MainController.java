@@ -244,4 +244,9 @@ public class MainController implements Initializable {
         }
     }
 
+    public void openExportListToLocation(){
+        ExportCSVFile exportCSVFile = new ExportCSVFile();
+        exportCSVFile.showStage();
+    }
+
 }

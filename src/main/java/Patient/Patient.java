@@ -66,7 +66,7 @@ public class Patient {
      * @param lastName the last name
      */
     public void setLastName(String lastName) {
-        if (firstName != null) {
+        if (lastName != null) {
             this.lastName = lastName;
         }else {
             throw new IllegalArgumentException("Illegal input for  last name, must be greater than null");
@@ -110,7 +110,7 @@ public class Patient {
      * @param diagnosis the diagnosis
      */
     public void setDiagnosis(String diagnosis) {
-        if (firstName != null) {
+        if (diagnosis != null) {
             this.diagnosis = diagnosis;
         }else {
             throw new IllegalArgumentException("Illegal input for name, must be greater than null");
@@ -132,7 +132,7 @@ public class Patient {
      * @param generalPractitioner the general practitioner
      */
     public void setGeneralPractitioner(String generalPractitioner) {
-        if (firstName != null) {
+        if (generalPractitioner != null) {
             this.generalPractitioner = generalPractitioner;
         }else {
             throw new IllegalArgumentException("Illegal input for name, must be greater than null");
