@@ -26,6 +26,7 @@ import java.util.ResourceBundle;
 
 
 public class MainController implements Initializable {
+    private AlertToUse alertToUse;
     private static final Logger LOGGER = Logger.getLogger(MainController.class.getName());
     public static Patient patientToBeEdited;
     public static PatientRegistryList patientRegistryList;
@@ -64,7 +65,7 @@ public class MainController implements Initializable {
         // Create the new stage
         this.mainStage = new Stage();
         patientRegistryList = new PatientRegistryList();
-        fillList();
+        fillList(); // DELETE
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/MainController.fxml"));
             // Set this class as the controller
@@ -103,10 +104,9 @@ public class MainController implements Initializable {
             this.patientToBeEdited = patientListView.getSelectionModel().getSelectedItem();
             editPatientController.showStage();
         } else {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("No selected patient!");
-            alert.setContentText("You have not selected any patients!");
-            alert.showAndWait();
+            alertToUse = new AlertToUse();
+            alertToUse.setAlertInformationAndShow("No selected patients", null, "You have not selected any patients!");
+
         }
     }
 
@@ -150,7 +150,7 @@ public class MainController implements Initializable {
 
     }
 
-    public void fillList() {
+    public void fillList() { //DELETE!!
         patientRegistryList.getPatientArrayList().add(new Patient("Gard", "Homse",
                 "11111111112", "AIDS", "Kiran"));
         patientRegistryList.getPatientArrayList().add(new Patient("Greg", "Jonas", "03204039281", "Diabetes", "John"));
@@ -164,13 +164,9 @@ public class MainController implements Initializable {
         LocalDate localDate = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MMMM yyy"); // formats the local date
         String formattedString = localDate.format(formatter); // Makes it a String
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Information Dialog - About");
-        alert.setHeaderText("Mappe-prosjekt");
-        alert.setContentText("Patient list application\n"
-                + "version 1.0.0\n"
-                + localDate); //Print current date on the system running
-        alert.showAndWait();
+        alertToUse = new AlertToUse();
+        alertToUse.setAlertInformationAndShow("Information Dialog - About", "Mappe-prosjekt",
+                "Patient list application \n" + "Version: 1.0.0\n" + "DATE: " + localDate);
     }
 
     public static Patient getPatientToBeEdited() {
@@ -201,16 +197,12 @@ public class MainController implements Initializable {
                 }
 
             } catch (Exception exception) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("ERROR MESSAGE");
-                alert.setHeaderText(exception.getMessage());
-                alert.showAndWait();
+                alertToUse = new AlertToUse();
+                alertToUse.setAlertErrorAndShow("EROR MESSAGE", exception.getMessage(), null);
             }
         } else {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("No selected patients!");
-            alert.setContentText("You must select a patient to modify!");
-            alert.showAndWait();
+            alertToUse = new AlertToUse();
+            alertToUse.setAlertInformationAndShow("No Selected patients", null, "You must select a patient to modify!");
         }
     }
 
@@ -236,11 +228,8 @@ public class MainController implements Initializable {
                     patientRegistryList.getPatientArrayList().add(new Patient(data[0], data[1], data[3], "UNDEFINED", data[2]));
                 } //Diagnosis set to undefined.
             }
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("IMPORT INFORMATION");
-            alert.setHeaderText(null);
-            alert.setContentText("Only imported patients with valid Social Security Number (11 digits)");
-            alert.showAndWait();
+            alertToUse = new AlertToUse();
+            alertToUse.setAlertInformationAndShow("IMPORT INFORMATION", null, "Only imported patients with valid Social Security Number (11 digits)");
             csvReader.close();
         } catch (FileNotFoundException fnfe) {
             LOGGER.error(fnfe.getMessage());
@@ -249,11 +238,8 @@ public class MainController implements Initializable {
         } catch (IllegalArgumentException iae) {
             LOGGER.fatal(iae.getMessage());
         }catch (NullPointerException npe){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("WRONG FILETYPE");
-            alert.setHeaderText("Cant read file");
-            alert.setContentText("Seems like the file is different from a csv file!");
-            alert.showAndWait();
+            alertToUse = new AlertToUse();
+            alertToUse.setAlertErrorAndShow("WRONG FILETYPE", "Can not read file!", "Seems like the file is a different type than .csv file");
             LOGGER.fatal(npe.getMessage() + " Possibly no files were chosen!");
         }
     }

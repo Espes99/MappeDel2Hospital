@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.util.Optional;
 
 public class AddPatientController {
+    AlertToUse alertToUse;
     private static final Logger LOGGER = Logger.getLogger(AddPatientController.class.getName());
     private Patient patient;
     private Stage stage;
@@ -72,8 +73,8 @@ public class AddPatientController {
 
     public void okAddPatient() throws NullPointerException, IOException {
         try {
-            if (firstNameField.getText().equals("") || lastNameField.getText().equals("")/* ||
-            diagnosisField.getText().equals("") || generalPractitionerField.getText().equals("")*/) {
+            if (firstNameField.getText().equals("") || lastNameField.getText().equals("") ||
+            diagnosisField.getText().equals("") || generalPractitionerField.getText().equals("")) {
                 throw new IOException("Empty String");
             }
 
@@ -86,29 +87,20 @@ public class AddPatientController {
                 throw new IllegalArgumentException("Social Security Number not 11 digits(String)");
             }
         } catch (NullPointerException nullPointerException) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Invalid Input!");
-            alert.setHeaderText("None of the fields can be empty!");
-            alert.setContentText("Please input correct information.");
-            alert.showAndWait();
+            alertToUse = new AlertToUse();
+            alertToUse.setAlertErrorAndShow("Invalid input!", "None of the fields can be empty!", "Please input correct information.");
             LOGGER.error("An Error occured when adding ");
             LOGGER.debug("Following excpetion: " + nullPointerException);
 
         } catch (IOException ioe) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Invalid Input!");
-            alert.setHeaderText("None of the fields can be empty!");
-            alert.setContentText("Please input correct information.");
-            alert.showAndWait();
+            alertToUse = new AlertToUse();
+            alertToUse.setAlertErrorAndShow("Invalid input", "Something went wrong with I/O", "Please correct input");
             LOGGER.error("IOException caught! Invalid inputs when adding " + patient);
         } catch (
                 IllegalArgumentException iae) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Invalid Input!");
-            alert.setHeaderText("Social security number needs 11 numbers!");
-            alert.setContentText("Please enter correct amount of number.");
-            alert.showAndWait();
-            LOGGER.debug("User entered " + socialSecurityNumberField.getText());
+            alertToUse = new AlertToUse();
+            alertToUse.setAlertErrorAndShow("Invalid input!", "Social security number needs 11 numbers!", "Please enter correct amount of number.");
+            LOGGER.debug("User entered " + socialSecurityNumberField.getText() + " Different from the 11number demand for SSS.");
         }
     }
 
