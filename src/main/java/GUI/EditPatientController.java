@@ -136,16 +136,27 @@ public class EditPatientController implements Initializable {
      */
     public void okEditPatient() {
         try{
+            if (firstNameField.getText().equals("") || lastNameField.getText().equals("") ||
+                    generalPractitionerField.getText().equals("")) {
+                throw new IOException("Fields are empty! Only Diagnosis can be empty");
+            }
+            if (socialSecurityNumberField.getText().length() != 11) {
+                throw new IllegalArgumentException("Social Security Number not 11 digits(String)");
+            }
         mainController.getPatientToBeEdited().setFirstName(firstNameField.getText());
         mainController.getPatientToBeEdited().setLastName(lastNameField.getText());
         mainController.getPatientToBeEdited().setSocialSecurityNumber(socialSecurityNumberField.getText());
         mainController.getPatientToBeEdited().setDiagnosis(diagnosisField.getText());
         mainController.getPatientToBeEdited().setGeneralPractitioner(generalPractitionerField.getText());
         stage.close();}
-        catch (NullPointerException nullPointerException){
+        catch (IOException fieldInputException){
             AlertToUse alert = new AlertToUse();
-            alert.setAlertErrorAndShow("Editing failed", "Failed to edit patient!", "Fields might be entered wrong");
-            LOGGER.debug("Unable to edit patient! ERROR MESSAGE:: " + nullPointerException.getMessage());
+            alert.setAlertErrorAndShow("Editing failed", fieldInputException.getMessage(), "Fields might be entered wrong. Please ensure all fields have input, disregarding Diagnosis");
+            LOGGER.error("Unable to edit patient! ERROR MESSAGE:: " + fieldInputException.getMessage());
+        }catch (IllegalArgumentException ie){
+            AlertToUse alert = new AlertToUse();
+            alert.setAlertErrorAndShow("Editing failed", ie.getMessage(), "Ensure Social Security number has 11 digits");
+            LOGGER.error("Unable to edit Patient! ERROR MESSAGE :: " + ie.getMessage());
         }
     }
 
