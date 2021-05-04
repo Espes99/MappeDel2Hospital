@@ -15,7 +15,7 @@ public class HospitalApp extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         MainController mainController = new MainController();
-            mainController.showStage();
+        mainController.showStage();
     }
 
     public static void main(String[] args) {

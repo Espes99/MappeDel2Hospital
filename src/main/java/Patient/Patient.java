@@ -46,7 +46,7 @@ public class Patient {
     public void setFirstName(String firstName) {
         if (firstName != null) {
             this.firstName = firstName;
-        }else {
+        } else {
             throw new IllegalArgumentException("Illegal input for first name, must be greater than null");
         }
     }
@@ -68,7 +68,7 @@ public class Patient {
     public void setLastName(String lastName) {
         if (lastName != null) {
             this.lastName = lastName;
-        }else {
+        } else {
             throw new IllegalArgumentException("Illegal input for  last name, must be greater than null");
         }
     }
@@ -88,9 +88,9 @@ public class Patient {
      * @param socialSecurityNumber the social security number
      */
     public void setSocialSecurityNumber(String socialSecurityNumber) {
-        if(socialSecurityNumber.length() == 11){
+        if (socialSecurityNumber.length() == 11) {
             this.socialSecurityNumber = socialSecurityNumber;
-        }else {
+        } else {
             throw new IllegalArgumentException("Illegal input for Social Security Number!");
         }
     }
@@ -112,7 +112,7 @@ public class Patient {
     public void setDiagnosis(String diagnosis) {
         if (diagnosis != null) {
             this.diagnosis = diagnosis;
-        }else {
+        } else {
             throw new IllegalArgumentException("Illegal input for name, must be greater than null");
         }
     }
@@ -134,7 +134,7 @@ public class Patient {
     public void setGeneralPractitioner(String generalPractitioner) {
         if (generalPractitioner != null) {
             this.generalPractitioner = generalPractitioner;
-        }else {
+        } else {
             throw new IllegalArgumentException("Illegal input for name, must be greater than null");
         }
     }

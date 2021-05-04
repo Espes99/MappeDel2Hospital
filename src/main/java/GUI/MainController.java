@@ -93,7 +93,7 @@ public class MainController implements Initializable {
     }
 
     public void openAddWindowMenuItem() {
-       openAddWindow();
+        openAddWindow();
     }
 
     public void openEditWindow() {
@@ -195,9 +195,10 @@ public class MainController implements Initializable {
                     alert.close();
                 }
 
-            } catch (Exception exception) {
+            } catch (NullPointerException exception) {
                 alertToUse = new AlertToUse();
                 alertToUse.setAlertErrorAndShow("EROR MESSAGE", exception.getMessage(), null);
+                LOGGER.error("Error when trying to delete " + patientSelected);
             }
         } else {
             alertToUse = new AlertToUse();
@@ -212,12 +213,12 @@ public class MainController implements Initializable {
 
     public void importListFromCSVFile() {
         ImportClass importClass = new ImportClass();
-        importClass.importFromCSV((Stage)mainStage.getScene().getWindow(), patientRegistryList);
+        importClass.importFromCSV((Stage) mainStage.getScene().getWindow(), patientRegistryList);
     }
 
-    public void openExportListToLocation(){
+    public void openExportListToLocation() {
         ExportCSVFileController exportCSVFileController = new ExportCSVFileController();
-        exportCSVFileController.showStage();
+        exportCSVFileController.exportCSV(mainStage, patientRegistryList);
     }
 
 }

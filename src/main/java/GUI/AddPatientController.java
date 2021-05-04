@@ -74,7 +74,7 @@ public class AddPatientController {
     public void okAddPatient() throws NullPointerException, IOException {
         try {
             if (firstNameField.getText().equals("") || lastNameField.getText().equals("") ||
-            diagnosisField.getText().equals("") || generalPractitionerField.getText().equals("")) {
+                    generalPractitionerField.getText().equals("")) {
                 throw new IOException("Empty String");
             }
 
