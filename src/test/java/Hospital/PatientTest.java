@@ -6,25 +6,35 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class PatientTest {
-Patient patient;
+    Patient patient;
 
-@Test
-void constructorTestPatient(){
-    try
-    {
-    Patient patient = new Patient(null, null, null, null, null);
-    fail("Failed creating patient");}
-    catch (NullPointerException iae){
-        assertEquals(null, patient );
-    }
-}
+
     @BeforeEach
-    void init(){
-    patient = new Patient("John", "Nordmann", "12345678901",
-            "Influensa", "Engle England");}
-            @Test
+    void init() {
+        patient = new Patient("John", "Nordmann", "12345678901",
+                "Influensa", "Engle England");
+    }
+
+    @Test
     void getFirstName() {
         assertEquals("John", patient.getFirstName());
+    }
+
+    @Test
+    void positiveSetFirstNameTest() { //Testing only one setter for the ones with the same guards.
+        patient.setFirstName("Johannes");
+        assertEquals("Johannes", patient.getFirstName());
+    }
+
+    @Test
+    void negativeSetFirstNameTest() { //Testing only one setter for the ones with the same guards.
+        String invalidInput;
+        try {
+            patient.setFirstName("");
+        } catch (IllegalArgumentException iae) {
+            assertFalse(iae.equals(invalidInput = ""));
+        }
+
     }
 
     @Test
@@ -39,13 +49,13 @@ void constructorTestPatient(){
     }
 
     @Test
-    void setSocialSecurityNumberNegativeTest(){
-        String invalidInput ="";
-        try{
+    void setSocialSecurityNumberNegativeTest() {
+        String invalidInput = "";
+        try {
             patient.setSocialSecurityNumber("1234567890");
             fail("Exception thrown");
-        }catch(IllegalArgumentException iae){
-            assertFalse(iae.equals(invalidInput= "11"));
+        } catch (IllegalArgumentException iae) {
+            assertFalse(iae.equals(invalidInput = "11"));
         }
     }
 
