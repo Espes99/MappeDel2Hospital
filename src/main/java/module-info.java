@@ -5,5 +5,5 @@ module Mappe2Hospital {
     requires log4j;
     exports App;
     exports GUI;
-    exports Patient;
+    exports Hospital;
 }

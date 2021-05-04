@@ -1,8 +1,9 @@
 package GUI;
 
-import Patient.Patient;
-import Patient.PatientRegistryList;
+import Hospital.Patient;
+import Hospital.PatientRegistryList;
 import Tools.AlertToUse;
+import Tools.ExportCSVFileClass;
 import Tools.ImportClass;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,7 +15,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import org.apache.log4j.Logger;
-
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -316,8 +316,8 @@ public class MainController implements Initializable {
      * Open export list to location.
      */
     public void openExportListToLocation() {
-        ExportCSVFileController exportCSVFileController = new ExportCSVFileController();
-        exportCSVFileController.exportCSV(mainStage, patientRegistryList);
+        ExportCSVFileClass exportCSVFileClass = new ExportCSVFileClass();
+        exportCSVFileClass.exportCSV(mainStage, patientRegistryList);
     }
 
 }

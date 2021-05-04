@@ -1,8 +1,8 @@
 package GUI;
 
-import Patient.Patient;
-import Patient.PatientRegistryList;
-import org.junit.jupiter.api.BeforeAll;
+import Hospital.Patient;
+import Hospital.PatientRegistryList;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -12,7 +12,7 @@ PatientRegistryList patientRegistryList;
 Patient patient;
 MainController mainController;
 
-@BeforeAll
+@BeforeEach
 void init(){
     mainController = new MainController();
     mainController.patientRegistryList.getPatientArrayList().add(new Patient("John", "Nordmann", "12345678901",

@@ -1,4 +1,4 @@
-package Patient;
+package Hospital;
 
 /**
  * The type Patient.

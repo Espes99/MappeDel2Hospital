@@ -1,6 +1,6 @@
 package GUI;
 
-import Patient.Patient;
+import Hospital.Patient;
 import Tools.AlertToUse;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,7 +11,6 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.apache.log4j.Logger;
-
 import java.io.IOException;
 import java.util.Optional;
 

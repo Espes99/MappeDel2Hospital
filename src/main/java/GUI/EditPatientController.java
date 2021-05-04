@@ -1,6 +1,6 @@
 package GUI;
 
-import Patient.Patient;
+import Hospital.Patient;
 import Tools.AlertToUse;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,7 +9,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import org.apache.log4j.Logger;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;

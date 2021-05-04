@@ -1,7 +1,7 @@
 package Tools;
 
-import Patient.Patient;
-import Patient.PatientRegistryList;
+import Hospital.Patient;
+import Hospital.PatientRegistryList;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.apache.log4j.Logger;

@@ -1,14 +1,7 @@
-package GUI;
+package Tools;
 
-import Patient.Patient;
-import Patient.PatientRegistryList;
-import Tools.AlertToUse;
-import Tools.ImportClass;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
+import Hospital.Patient;
+import Hospital.PatientRegistryList;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.apache.log4j.Logger;
@@ -18,63 +11,11 @@ import java.io.*;
 /**
  * The type Export csv file controller.
  */
-public class ExportCSVFileController {
+public class ExportCSVFileClass {
     /**
      * Logger field
      */
     private static final Logger LOGGER = Logger.getLogger(ImportClass.class.getName());
-    /**
-     * The Find file button.
-     */
-    @FXML
-    public Button findFileButton;
-    /**
-     * The Path.
-     */
-    @FXML
-    public TextField path;
-    /**
-     * The Export button.
-     */
-    @FXML
-    public Button exportButton;
-    /**
-     * File field
-     */
-    private File file;
-    /**
-     * Stage field
-     */
-    private Stage stage;
-    /**
-     * The Url.
-     */
-    String url;
-
-    /**
-     * Showing stage and setting the controller for this class.
-     */
-    public void showStage() {
-        // Create the new stage
-        stage = new Stage();
-
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/ExportCSVFile.fxml"));
-
-            // Set this class as the controller
-            loader.setController(this);
-            // Load the scene
-            stage.setScene(new Scene(loader.load()));
-            // Setup the window/stage
-            stage.setTitle("Export File");
-
-            stage.show();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
 
     /**
      * Exporting list to csv. Saving file with given name. Will automatically give error if file already exsists.
@@ -117,13 +58,6 @@ public class ExportCSVFileController {
             AlertToUse alert = new AlertToUse();
             alert.setAlertInformationAndShow("Export process terminated", null, "No location selected, or process has been canceled.");
         }
-    }
-
-    /**
-     * Exit the export window.
-     */
-    public void exit() {
-        this.stage.close();
     }
 
 }

@@ -1,4 +1,4 @@
-package Patient;
+package Hospital;
 
 
 import javafx.collections.FXCollections;
