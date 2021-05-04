@@ -44,11 +44,12 @@ public class Patient {
      * @param firstName the first name
      */
     public void setFirstName(String firstName) {
-        if (firstName != null || !firstName.equals("")) {
-            this.firstName = firstName;
-        } else {
-            throw new IllegalArgumentException("Illegal input for first name, must be greater than null");
+        if (firstName == null) {
+            throw new IllegalArgumentException("Illegal input for first name, must be greater than blank");
+        } else if(firstName.isBlank()){
+            throw new NullPointerException("Illegal input for first name, must be greater than blank");
         }
+        this.firstName = firstName;
     }
 
     /**
@@ -66,11 +67,12 @@ public class Patient {
      * @param lastName the last name
      */
     public void setLastName(String lastName) {
-        if (lastName != null || !lastName.equals("")) {
-            this.lastName = lastName;
-        } else {
-            throw new IllegalArgumentException("Illegal input for  last name, must be greater than null");
+        if (lastName == null) {
+            throw new IllegalArgumentException("Illegal input for general practitioner, must be greater than blank");
+        } else if(lastName.isBlank()){
+            throw new NullPointerException("Illegal input for general practitioner, must be greater than blank");
         }
+        this.lastName = lastName;
     }
 
     /**
@@ -88,10 +90,10 @@ public class Patient {
      * @param socialSecurityNumber the social security number
      */
     public void setSocialSecurityNumber(String socialSecurityNumber) {
-        if (socialSecurityNumber.length() == 11) {
+        if(socialSecurityNumber.length() == 11){
             this.socialSecurityNumber = socialSecurityNumber;
-        } else {
-            throw new IllegalArgumentException("Illegal input for Social Security Number!");
+        }else{
+            throw new IllegalArgumentException("Social security number must be 11 digits!");
         }
     }
 
@@ -132,10 +134,12 @@ public class Patient {
      * @param generalPractitioner the general practitioner
      */
     public void setGeneralPractitioner(String generalPractitioner) {
-        if (generalPractitioner != null || !generalPractitioner.equals("")) {
-            this.generalPractitioner = generalPractitioner;
-        } else {
-            throw new IllegalArgumentException("Illegal input for general practitioner, must be greater than null");
+        if (generalPractitioner == null) {
+            throw new IllegalArgumentException("Illegal input for general practitioner, must be greater than blank");
+        } else if(generalPractitioner.isBlank()){
+            throw new NullPointerException("Illegal input for general practitioner, must be greater than blank");
         }
+            this.generalPractitioner = generalPractitioner;
+
     }
 }

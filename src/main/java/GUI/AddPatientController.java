@@ -120,9 +120,9 @@ public class AddPatientController {
      */
     public void okAddPatient() throws NullPointerException, IOException {
         try {
-            if (firstNameField.getText().equals("") || lastNameField.getText().equals("") ||
-                    generalPractitionerField.getText().equals("")) {
-                throw new IOException("Fields are empty! Only Diagnosis can be empty");
+            if (firstNameField.getText().isBlank() || lastNameField.getText().isBlank() ||
+                    generalPractitionerField.getText().isBlank()) {
+                throw new NullPointerException("Fields are empty! Only Diagnosis can be empty");
             }
             if (socialSecurityNumberField.getText().length() != 11) {
                 throw new IllegalArgumentException("Social Security Number not 11 digits(String)");
@@ -135,18 +135,14 @@ public class AddPatientController {
             LOGGER.info("Patient added");
         } catch (NullPointerException nullPointerException) {
             alertToUse = new AlertToUse();
-            alertToUse.setAlertErrorAndShow("Invalid input!", "Something went wrong", "Current output is null");
+            alertToUse.setAlertErrorAndShow("Invalid input", nullPointerException.getMessage(), "Please correct input (Dagnosis can be empty, rest needs to be filled!");
             LOGGER.error("Following excpetion: " + nullPointerException.getMessage());
-
-        } catch (IOException ioe) {
-            alertToUse = new AlertToUse();
-            alertToUse.setAlertErrorAndShow("Invalid input", ioe.getMessage(), "Please correct input (Dagnosis can be empty, rest needs to be filled!");
-            LOGGER.error("IOException caught! Invalid inputs when adding " + patient.getFirstName() + " " + patient.getLastName());
-        } catch (
-                IllegalArgumentException iae) {
+        } catch (IllegalArgumentException iae) {
             alertToUse = new AlertToUse();
             alertToUse.setAlertErrorAndShow("Invalid input!", iae.getMessage(), "Please enter correct amount of digits.");
             LOGGER.error("User entered " + socialSecurityNumberField.getText() + " Different from the 11number demand for SSS.");
+        }catch (Exception e ){
+            LOGGER.error(e.getMessage());
         }
     }
 

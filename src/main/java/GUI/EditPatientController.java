@@ -135,8 +135,8 @@ public class EditPatientController implements Initializable {
      */
     public void okEditPatient() {
         try{
-            if (firstNameField.getText().equals("") || lastNameField.getText().equals("") ||
-                    generalPractitionerField.getText().equals("")) {
+            if (firstNameField.getText().isBlank() || lastNameField.getText().isBlank() ||
+                    generalPractitionerField.getText().isBlank()) {
                 throw new IOException("Fields are empty! Only Diagnosis can be empty");
             }
             if (socialSecurityNumberField.getText().length() != 11) {

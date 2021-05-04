@@ -240,7 +240,7 @@ public class MainController implements Initializable {
      * @param patient the patient
      */
     public static void addPatientToList(Patient patient) {
-        patientRegistryList.addPatient(patient);
+        patientRegistryList.getPatientArrayList().add(patient);
     }
 
     /**
