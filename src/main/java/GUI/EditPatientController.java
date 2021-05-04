@@ -5,10 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import org.apache.log4j.Logger;
 
@@ -50,7 +47,7 @@ public class EditPatientController implements Initializable {
         }
     }
 
-    public void showStage() {
+    public void showStage(TableView<Patient> tableView) {
         // Create the new stage
         stage = new Stage();
 
@@ -64,7 +61,7 @@ public class EditPatientController implements Initializable {
             // Setup the window/stage
             stage.setTitle("Edit A Patient");
             stage.show();
-
+            this.stage.setOnHidden(event -> tableView.refresh());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -88,11 +85,12 @@ public class EditPatientController implements Initializable {
     }
 
     public void okEditPatient() {
-        Patient patient = new Patient(firstNameField.getText(), lastNameField.getText(), socialSecurityNumberField.getText(), diagnosisField.getText(), generalPractitionerField.getText());
-        mainController.patientRegistryList.getPatientArrayList().add(patient);
-        mainController.patientRegistryList.getPatientArrayList().remove(mainController.getPatientToBeEdited());
+        mainController.getPatientToBeEdited().setFirstName(firstNameField.getText());
+        mainController.getPatientToBeEdited().setLastName(lastNameField.getText());
+        mainController.getPatientToBeEdited().setSocialSecurityNumber(socialSecurityNumberField.getText());
+        mainController.getPatientToBeEdited().setDiagnosis(diagnosisField.getText());
+        mainController.getPatientToBeEdited().setGeneralPractitioner(generalPractitionerField.getText());
         stage.close();
     }
-
 
 }

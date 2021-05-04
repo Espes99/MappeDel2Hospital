@@ -2,8 +2,8 @@ package GUI;
 
 import Patient.Patient;
 import Patient.PatientRegistryList;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
+import Tools.AlertToUse;
+import Tools.ImportClass;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,7 +11,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -102,7 +101,7 @@ public class MainController implements Initializable {
         if (patientToBeEdited != null) {
             EditPatientController editPatientController = new EditPatientController();
             this.patientToBeEdited = patientListView.getSelectionModel().getSelectedItem();
-            editPatientController.showStage();
+            editPatientController.showStage(patientListView);
         } else {
             alertToUse = new AlertToUse();
             alertToUse.setAlertInformationAndShow("No selected patients", null, "You have not selected any patients!");
@@ -212,41 +211,13 @@ public class MainController implements Initializable {
 
 
     public void importListFromCSVFile() {
-        try {
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Pick CSV file");
-            fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("csv", "*.csv"));
-            Stage stage = (Stage) mainStage.getScene().getWindow();
-            File file = fileChooser.showOpenDialog(stage);
-
-            BufferedReader csvReader = new BufferedReader(new FileReader(file));
-            String row;
-            csvReader.readLine();
-            while ((row = csvReader.readLine()) != null) {
-                String[] data = row.split(";");
-                if (data[3].length() == 11) {
-                    patientRegistryList.getPatientArrayList().add(new Patient(data[0], data[1], data[3], "UNDEFINED", data[2]));
-                } //Diagnosis set to undefined.
-            }
-            alertToUse = new AlertToUse();
-            alertToUse.setAlertInformationAndShow("IMPORT INFORMATION", null, "Only imported patients with valid Social Security Number (11 digits)");
-            csvReader.close();
-        } catch (FileNotFoundException fnfe) {
-            LOGGER.error(fnfe.getMessage());
-        } catch (IOException ioe) {
-            LOGGER.error(ioe.getMessage());
-        } catch (IllegalArgumentException iae) {
-            LOGGER.fatal(iae.getMessage());
-        }catch (NullPointerException npe){
-            alertToUse = new AlertToUse();
-            alertToUse.setAlertErrorAndShow("WRONG FILETYPE", "Can not read file!", "Seems like the file is a different type than .csv file");
-            LOGGER.fatal(npe.getMessage() + " Possibly no files were chosen!");
-        }
+        ImportClass importClass = new ImportClass();
+        importClass.importFromCSV((Stage)mainStage.getScene().getWindow(), patientRegistryList);
     }
 
     public void openExportListToLocation(){
-        ExportCSVFile exportCSVFile = new ExportCSVFile();
-        exportCSVFile.showStage();
+        ExportCSVFileController exportCSVFileController = new ExportCSVFileController();
+        exportCSVFileController.showStage();
     }
 
 }
