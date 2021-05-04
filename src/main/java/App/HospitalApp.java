@@ -2,14 +2,13 @@ package App;
 
 import GUI.MainController;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
-import Patient.PatientRegistryList;
 
 import java.io.IOException;
 
+/**
+ * The  app to run application
+ */
 public class HospitalApp extends Application {
 
     @Override
@@ -18,6 +17,11 @@ public class HospitalApp extends Application {
         mainController.showStage();
     }
 
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
     public static void main(String[] args) {
         launch();
     }

@@ -7,29 +7,53 @@ import Tools.ImportClass;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.apache.log4j.Logger;
 
 import java.io.*;
-import java.nio.file.FileAlreadyExistsException;
 
+/**
+ * The type Export csv file controller.
+ */
 public class ExportCSVFileController {
+    /**
+     * Logger field
+     */
     private static final Logger LOGGER = Logger.getLogger(ImportClass.class.getName());
+    /**
+     * The Find file button.
+     */
     @FXML
     public Button findFileButton;
+    /**
+     * The Path.
+     */
     @FXML
     public TextField path;
+    /**
+     * The Export button.
+     */
     @FXML
     public Button exportButton;
+    /**
+     * File field
+     */
     private File file;
+    /**
+     * Stage field
+     */
     private Stage stage;
+    /**
+     * The Url.
+     */
     String url;
 
+    /**
+     * Showing stage and setting the controller for this class.
+     */
     public void showStage() {
         // Create the new stage
         stage = new Stage();
@@ -52,6 +76,13 @@ public class ExportCSVFileController {
     }
 
 
+    /**
+     * Exporting list to csv. Saving file with given name. Will automatically give error if file already exsists.
+     *
+     *
+     * @param stage               the stage
+     * @param patientRegistryList the patient registry list
+     */
     public void exportCSV(Stage stage, PatientRegistryList patientRegistryList) {
         try {
             FileChooser fileChooser = new FileChooser();
@@ -88,6 +119,9 @@ public class ExportCSVFileController {
         }
     }
 
+    /**
+     * Exit the export window.
+     */
     public void exit() {
         this.stage.close();
     }

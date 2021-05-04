@@ -1,19 +1,31 @@
 package Tools;
 
-import GUI.AddPatientController;
 import Patient.Patient;
 import Patient.PatientRegistryList;
-import javafx.scene.control.IndexRange;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.apache.log4j.Logger;
 
 import java.io.*;
 
+/**
+ * The type Import class.
+ */
 public class ImportClass {
     private static final Logger LOGGER = Logger.getLogger(ImportClass.class.getName());
+    /**
+     * The Alert to use field.
+     */
     AlertToUse alertToUse;
 
+    /**
+     * Import files with csv.
+     * Also reads it as UTF-8
+     * Set data to tableview with or without diagnosis set.
+     *
+     * @param stage               the stage
+     * @param patientRegistryList the patient registry list
+     */
     public void importFromCSV(Stage stage, PatientRegistryList patientRegistryList) {
         try {
             FileChooser fileChooser = new FileChooser();
