@@ -204,6 +204,7 @@ public class MainController implements Initializable {
 
         if (result.get() == ButtonType.OK) {
             this.mainStage.close();
+            LOGGER.info("App exited.");
         } else {
             alert.close();
         }
@@ -239,7 +240,7 @@ public class MainController implements Initializable {
      * @param patient the patient
      */
     public static void addPatientToList(Patient patient) {
-        patientRegistryList.getPatientArrayList().add(patient);
+        patientRegistryList.addPatient(patient);
     }
 
     /**
@@ -279,8 +280,7 @@ public class MainController implements Initializable {
                 Optional<ButtonType> result = alert.showAndWait();
 
                 if (result.get() == ButtonType.OK) {
-                    patientRegistryList.getPatientArrayList().remove(patientSelected);
-                    patientListView.setItems(patientRegistryList.getPatientArrayList());
+                    patientRegistryList.removePatient(patientSelected);
                 } else {
                     alert.close();
                 }

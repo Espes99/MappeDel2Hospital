@@ -21,7 +21,7 @@ public class AddPatientController {
     /**
      * Setting alerts field
      */
-    AlertToUse alertToUse;
+    private AlertToUse alertToUse;
     /**
      * Logger field
      */
@@ -136,7 +136,7 @@ public class AddPatientController {
         } catch (NullPointerException nullPointerException) {
             alertToUse = new AlertToUse();
             alertToUse.setAlertErrorAndShow("Invalid input!", "Something went wrong", "Current output is null");
-            LOGGER.error("Following excpetion: " + nullPointerException);
+            LOGGER.error("Following excpetion: " + nullPointerException.getMessage());
 
         } catch (IOException ioe) {
             alertToUse = new AlertToUse();

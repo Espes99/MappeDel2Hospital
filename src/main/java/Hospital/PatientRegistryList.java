@@ -29,4 +29,12 @@ public class PatientRegistryList {
     public ObservableList<Patient> getPatientArrayList() {
         return patientArrayList;
     }
+
+    public void addPatient(Patient patient){
+        this.patientArrayList.add(patient);
+    }
+
+    public void removePatient(Patient patient){
+        this.patientArrayList.remove(patient);
+    }
 }
