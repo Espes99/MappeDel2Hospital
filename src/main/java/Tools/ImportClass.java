@@ -40,7 +40,6 @@ public class ImportClass {
             while ((row = csvReader.readLine()) != null) {
                 String[] data = row.split(";");
                 if (data[3].length() == 11 && data.length == 4) {
-                    System.out.println(data.length);
                     patientRegistryList.getPatientArrayList().add(new Patient(data[0], data[1], data[3], "", data[2]));
                     //Diagnosis set to undefined if its not already defined in the file
                 } else if (data.length == 5 && data[3].length() == 11) {
